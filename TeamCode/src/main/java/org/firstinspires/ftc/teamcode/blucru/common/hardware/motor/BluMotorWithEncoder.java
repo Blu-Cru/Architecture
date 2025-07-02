@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 
 public class BluMotorWithEncoder extends DcMotorImplEx implements BluHardwareDevice {
     String name;
-    double power, lastPower;
-    double encoderTicks, vel;
+    double power=0, lastPower=0;
+    double encoderTicks=0, vel=0;
     public BluMotorWithEncoder(String name){
         this(name, Direction.FORWARD);
     }

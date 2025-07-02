@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 
 public class BluMotor extends DcMotorImplEx implements BluHardwareDevice {
     String name;
-    double power, lastPower;
+    double power=0, lastPower=0;
     public BluMotor(String name){
         this(name, Direction.FORWARD);
     }

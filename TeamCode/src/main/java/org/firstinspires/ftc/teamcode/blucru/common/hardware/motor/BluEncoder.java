@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 
 public class BluEncoder extends DcMotorImplEx implements BluHardwareDevice {
     String name;
-    double encoderTicks;
-    double vel;
+    double encoderTicks=0;
+    double vel=0;
     public BluEncoder(String name, Direction direction) {
         this(name, direction, ZeroPowerBehavior.FLOAT);
     }
