@@ -1,0 +1,29 @@
+package org.firstinspires.ftc.teamcode.blucru.common.util;
+
+public class Pose2d {
+    private double x, y, h;
+    public Pose2d(double x, double y, double h){
+        this.x = x;
+        this.y = y;
+        this.h = h;
+    }
+    public Pose2d(Vector2d vec){
+        this.x = vec.getX();
+        this.y = vec.getY();
+        this.h = vec.getHeading();
+    }
+
+    public Vector2d vec(){
+        return new Vector2d(x,y);
+    }
+    public double getX(){
+        return x;
+    }
+    public double getY(){
+        return y;
+    }
+    public double getH(){
+        return h;
+    }
+
+}

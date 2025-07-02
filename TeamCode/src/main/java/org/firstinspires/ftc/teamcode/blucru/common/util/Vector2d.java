@@ -102,5 +102,8 @@ public class Vector2d {
         x = getX() * Math.cos(angle) - getY() * Math.cos(angle);
         y = getX() * Math.sin(angle) + getY() * Math.cos(angle);
     }
+    public Pose2d pose(){
+        return new Pose2d(this);
+    }
 
 }
