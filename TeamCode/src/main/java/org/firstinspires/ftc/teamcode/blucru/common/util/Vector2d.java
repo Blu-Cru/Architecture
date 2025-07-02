@@ -112,5 +112,8 @@ public class Vector2d {
     public void set(double x){
         this.x = x;
     }
+    public double dotProduct(Vector2d vec){
+        return x * vec.getX() + y * vec.getY();
+    }
 
 }
