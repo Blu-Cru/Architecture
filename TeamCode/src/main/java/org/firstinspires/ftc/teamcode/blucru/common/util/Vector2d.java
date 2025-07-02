@@ -105,5 +105,12 @@ public class Vector2d {
     public Pose2d pose(){
         return new Pose2d(this);
     }
+    public void set(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+    public void set(double x){
+        this.x = x;
+    }
 
 }

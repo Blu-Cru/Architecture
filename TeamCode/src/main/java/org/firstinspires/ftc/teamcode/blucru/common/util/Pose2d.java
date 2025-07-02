@@ -25,5 +25,19 @@ public class Pose2d {
     public double getH(){
         return h;
     }
+    public void set(double x, double y, double h){
+        this.x = x;
+        this.y = y;
+        this.h = h;
+    }
+
+    public void set(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+    public void set(double x){
+        this.x = x;
+    }
+
 
 }
