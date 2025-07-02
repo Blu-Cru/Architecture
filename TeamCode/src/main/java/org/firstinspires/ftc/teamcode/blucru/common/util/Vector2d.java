@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.blucru.common.util;
 
 public class Vector2d {
-    private double x, y, heading, mag;
+    private double x, y;
     public Vector2d(double x, double y){
         this.x = x;
         this.y = y;
-        this.mag = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
-        heading = getHeading();
 
     }
     //angles will be close enough so we should not have to worry about long loop time
@@ -55,11 +53,6 @@ public class Vector2d {
         x += vec.getX();
         y += vec.getY();
 
-        //recalc mag
-        mag = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
-
-        //need to recacl heading
-        heading = getHeading();
     }
     /**
      * this function adds the 2 vectors together and returns the sum
@@ -69,8 +62,25 @@ public class Vector2d {
         return new Vector2d(getX() + vec.getX(), getY() + vec.getY());
     }
 
+    /**
+     * this function subtracts vector 1 - vector 2 together, changing the first vector
+     * @return nothing
+     * */
+    public void subtractInPlace(Vector2d vector2){
+        x -= vector2.getX();
+        y -= vector2.getY();
+    }
+
+    /**
+     * this function subtracts vector 1 - vector 2 together and returns the subtracted vector
+     * @return nothing
+     * */
+    public Vector2d subtractNotInPlace(Vector2d vector2){
+        return new Vector2d(getX() - vector2.getX(), getY() - vector2.getY());
+    }
+
     public double getMag(){
-        return mag;
+        return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
 
     public static Vector2d polarToCartesian(double r, double h){
@@ -91,7 +101,6 @@ public class Vector2d {
     public void rotateInPlace(double angle){
         x = getX() * Math.cos(angle) - getY() * Math.cos(angle);
         y = getX() * Math.sin(angle) + getY() * Math.cos(angle);
-        heading += angle;
     }
 
 }
