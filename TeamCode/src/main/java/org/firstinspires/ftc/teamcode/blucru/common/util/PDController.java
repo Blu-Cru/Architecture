@@ -42,11 +42,8 @@ public class PDController extends PIDController{
         return calculate(pv, sp);
     }
 
-    public void setPID(double p, double i, double d){
-        super.setPID(p,i,d);
-    }
     public void setPD(double p, double d){
-        super.setPID(p, this.i, d);
+        super.setPID(p, 0, d);
     }
     public void setP(double p){
         super.setP(p);
