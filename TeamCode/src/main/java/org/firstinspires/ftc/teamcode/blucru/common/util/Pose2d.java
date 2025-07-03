@@ -15,6 +15,11 @@ public class Pose2d {
         this.y = vec.getY();
         this.h = vec.getHeading();
     }
+    public Pose2d(Vector2d vec, double h){
+        this.x = vec.getX();
+        this.y = vec.getY();
+        this.h = h;
+    }
 
     public Vector2d vec(){
         return new Vector2d(x,y);
