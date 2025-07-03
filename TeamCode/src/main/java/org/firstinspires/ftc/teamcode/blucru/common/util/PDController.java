@@ -1,25 +1,24 @@
 package org.firstinspires.ftc.teamcode.blucru.common.util;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class PID extends PIDController{
-    double p, i, d;
+public class PDController extends PIDController{
+    double p, d;
     Vector2d k;
-    public PID(){
+    public PDController(){
         this(0);
     }
-    public PID(double p){
+    public PDController(double p){
         this(p,0);
     }
-    public PID(double p, double d){
-        this(p, 0, d);
-    }
-    public PID(double p, double i, double d){
-        super(p, i,d);
+    public PDController(double p, double d){
+        super(p, 0,d);
         k = new Vector2d(p, d);
     }
+
 
     public double calculate(double currentPos, double targetPos, double currentVel, double targetVel){
         Vector2d pv = new Vector2d(currentPos, currentVel);
