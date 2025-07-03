@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.blucru.common.util;
 
+/**
+ * This class is for 2d vectors. It is based off Roadrunner's Vector2d class
+ * */
+
 public class Vector2d {
     private double x, y;
     public Vector2d(double x, double y){
