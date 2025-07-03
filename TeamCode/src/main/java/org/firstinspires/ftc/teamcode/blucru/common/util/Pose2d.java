@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.blucru.common.util;
 
+/**
+ * This class is for 2d poses. It is heavily based off Roadrunner's Pose2d class
+ * */
 public class Pose2d {
     private double x, y, h;
     public Pose2d(double x, double y, double h){
