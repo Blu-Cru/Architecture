@@ -24,7 +24,7 @@ public class Vector2d {
                 return normalize(Math.atan(y/x));
             } else {
                 //will always be normalized
-                return Math.atan(y/x) + 180;
+                return Math.atan(y/x) + Math.PI;
             }
 
         } else{

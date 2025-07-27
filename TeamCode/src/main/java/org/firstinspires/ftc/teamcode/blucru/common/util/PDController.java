@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.blucru.common.util;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.ejml.dense.block.VectorOps_DDRB;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class PDController extends PIDController{
@@ -30,6 +31,13 @@ public class PDController extends PIDController{
     public double calculate(Vector2d curr, Vector2d target){
         Vector2d error = target.subtractNotInPlace(curr);
 
+        super.setSetPoint(error.getX());
+        return error.dotProduct(k);
+    }
+
+    public double calculate(double errorPos, double errorVel){
+
+        Vector2d error = new Vector2d(errorPos, errorVel);
         super.setSetPoint(error.getX());
         return error.dotProduct(k);
     }

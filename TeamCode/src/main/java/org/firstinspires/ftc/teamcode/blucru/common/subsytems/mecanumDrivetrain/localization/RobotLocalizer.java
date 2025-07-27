@@ -10,4 +10,8 @@ public interface RobotLocalizer {
     public double getHeading();
     public void setOffset(double x, double y, double h);
     public void setPosition(double x, double y, double h);
+    public void setPosition(Pose2d pose);
+    public Pose2d getVel();
+    public void setHeading(double heading);
+    public void telemetry();
 }

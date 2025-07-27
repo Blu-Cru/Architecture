@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 
@@ -80,5 +81,30 @@ public class Pinpoint implements RobotLocalizer{
         pinpoint.setPosY(y, DistanceUnit.INCH);
         pinpoint.setHeading(h, AngleUnit.RADIANS);
         read();
+    }
+
+    @Override
+    public void setPosition(Pose2d pose) {
+        pinpoint.setPosX(pose.getX(), DistanceUnit.INCH);
+        pinpoint.setPosY(pose.getY(), DistanceUnit.INCH);
+        pinpoint.setHeading(pose.getH(), AngleUnit.RADIANS);
+    }
+
+    @Override
+    public Pose2d getVel() {
+        return new Pose2d(pinpoint.getVelX(DistanceUnit.INCH), pinpoint.getVelY(DistanceUnit.INCH), pinpoint.getHeadingVelocity(UnnormalizedAngleUnit.RADIANS));
+    }
+
+    @Override
+    public void setHeading(double heading) {
+        pinpoint.setHeading(heading, AngleUnit.RADIANS);
+    }
+
+    @Override
+    public void telemetry() {
+
+        //adding the "" at the start makes sure that it is a string
+        Globals.telemetry.addData("Pinpoint Pose", "" + getPose());
+        Globals.telemetry.addData("Pinpoint Vel", "" + getVel());
     }
 }
