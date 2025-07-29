@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.blucru.common.subsytems;
 
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
+
+import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.Drivetrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,8 @@ public class Robot {
 
     //list of subsystems
     ArrayList<BluSubsystem> subsystems;
-    static Robot instance;
+    public Drivetrain drivetrain;
+    private static Robot instance;
     HardwareMap hwMap;
     List<LynxModule> hubs;
     public static Robot getInstance(){
@@ -68,6 +72,32 @@ public class Robot {
         for (BluSubsystem subsystem : subsystems){
             subsystem.write();
         }
+    }
+
+    public double getVoltage(){
+
+        //start at 12 bc that is the max power, otherwsie the power correction returns values < 1
+        double result = 12;
+        //read voltage sensor and
+        for (VoltageSensor sensor: hwMap.voltageSensor){
+            double voltage = sensor.getVoltage();
+            if (voltage > 0){
+                result = Math.min(result, voltage);
+            }
+        }
+        return result;
+    }
+
+    public void telemetry(){
+        for (BluSubsystem subsystem: subsystems){
+            subsystem.telemetry();
+        }
+    }
+
+    public Drivetrain addDrivetrain(){
+        drivetrain = new Drivetrain();
+        subsystems.add(drivetrain);
+        return drivetrain;
     }
 
 
