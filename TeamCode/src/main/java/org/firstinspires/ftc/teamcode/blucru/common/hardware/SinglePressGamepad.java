@@ -27,6 +27,27 @@ public class SinglePressGamepad {
     //touchpad
     private boolean lastTouchpad;
 
+    //a,b,x,y in that order;
+    private boolean[] thisFaceButtons;
+
+    //dpad up down left right in that order;
+    private boolean[] thisDpad;
+
+    //bumpers, left then right;
+    private boolean[] thisBumper;
+
+    //stick buttons, left then right;
+    private boolean[] thisStickButton;
+
+    //options and share, in that order;
+    private boolean[] thisOptionsAndShare;
+
+    //triggers, left and right in that order;
+    private boolean[] thisTriggersPressed;
+
+    //touchpad
+    private boolean thisTouchpad;
+
     Gamepad gamepad;
     double triggerTolerance = 0.2;
 
@@ -39,107 +60,245 @@ public class SinglePressGamepad {
         lastOptionsAndShare = new boolean[]{false, false};
         lastTriggersPressed = new boolean[]{false, false};
         lastTouchpad = false;
+        thisFaceButtons = new boolean[]{false, false, false, false};
+        thisDpad = new boolean[]{false, false, false, false};
+        thisBumper = new boolean[]{false, false};
+        thisStickButton = new boolean[]{false, false};
+        thisOptionsAndShare = new boolean[]{false, false};
+        thisTriggersPressed = new boolean[]{false, false};
+        thisTouchpad = false;
     }
 
+    public void update(){
+        if (gamepad.a ){
+            //pressed last loop
+            thisFaceButtons[0] = !lastFaceButtons[0];
+            lastFaceButtons[0] = true;
+        } else {
+            thisFaceButtons[0] = false;
+            lastFaceButtons[0] = false;
+        }
+
+        if (gamepad.b){
+            //pressed last loop
+            thisFaceButtons[1] = !lastFaceButtons[1];
+            lastFaceButtons[1] = true;
+        } else {
+            thisFaceButtons[1] = false;
+            lastFaceButtons[1] = false;
+        }
+
+        if (gamepad.x){
+            //pressed last loop
+            thisFaceButtons[2] = !lastFaceButtons[2];
+            lastFaceButtons[2] = true;
+        } else {
+            thisFaceButtons[2] = false;
+            lastFaceButtons[2] = false;
+        }
+
+        if (gamepad.y){
+            //pressed last loop
+            thisFaceButtons[3] = !lastFaceButtons[3];
+            lastFaceButtons[3] = true;
+        } else {
+            thisFaceButtons[3] = false;
+            lastFaceButtons[3] = false;
+        }
+
+
+
+        if (gamepad.dpad_up){
+            //pressed last loop
+            thisDpad[0] = !lastDpad[0];
+            lastDpad[0] = true;
+        } else {
+            thisDpad[0] = false;
+            lastDpad[0] = false;
+        }
+
+        if (gamepad.dpad_down){
+            //pressed last loop
+            thisDpad[1] = !lastDpad[1];
+            lastDpad[1] = true;
+        } else {
+            thisDpad[1] = false;
+            lastDpad[1] = false;
+        }
+
+        if (gamepad.dpad_left){
+            //pressed last loop
+            thisFaceButtons[2] = !lastFaceButtons[2];
+            lastFaceButtons[2] = true;
+        } else {
+            thisDpad[2] = false;
+            lastDpad[2] = false;
+        }
+
+        if (gamepad.dpad_right){
+            //pressed last loop
+            thisFaceButtons[3] = !lastFaceButtons[3];
+            lastFaceButtons[3] = true;
+        } else {
+            thisDpad[3] = false;
+            lastDpad[3] = false;
+        }
+
+
+
+        if (gamepad.left_bumper){
+            //pressed last loop
+            thisBumper[0] = !lastBumper[0];
+            lastBumper[0] = true;
+        } else {
+            thisBumper[0] = false;
+            lastBumper[0] = false;
+        }
+
+        if (gamepad.right_bumper){
+            //pressed last loop
+            thisBumper[1] = !lastBumper[1];
+            lastBumper[1] = true;
+        } else {
+            thisBumper[1] = false;
+            lastBumper[1] = false;
+        }
+
+
+
+        if (gamepad.left_stick_button){
+            //pressed last loop
+            thisStickButton[0] = !lastStickButton[0];
+            lastStickButton[0] = true;
+        } else {
+            thisStickButton[0] = false;
+            lastStickButton[0] = false;
+        }
+
+        if (gamepad.right_stick_button){
+            //pressed last loop
+            thisStickButton[1] = !lastStickButton[1];
+            lastStickButton[1] = true;
+        } else {
+            thisStickButton[1] = false;
+            lastStickButton[1] = false;
+        }
+
+
+
+        if (gamepad.options){
+            //pressed last loop
+            thisOptionsAndShare[0] = !lastOptionsAndShare[0];
+            lastOptionsAndShare[0] = true;
+        } else {
+            thisOptionsAndShare[0] = false;
+            lastOptionsAndShare[0] = false;
+        }
+
+        if (gamepad.share){
+            //pressed last loop
+            thisOptionsAndShare[1] = !lastOptionsAndShare[1];
+            lastOptionsAndShare[1] = true;
+        } else {
+            thisOptionsAndShare[1] = false;
+            lastOptionsAndShare[1] = false;
+        }
+
+
+
+        boolean ltPressed = gamepad.left_trigger > triggerTolerance;
+        boolean rtPressed = gamepad.right_trigger > triggerTolerance;
+        if (ltPressed){
+            //pressed last loop
+            thisTriggersPressed[0] = !lastTriggersPressed[0];
+            lastTriggersPressed[0] = true;
+        } else {
+            thisTriggersPressed[0] = false;
+            lastTriggersPressed[0] = false;
+        }
+
+        if (rtPressed){
+            //pressed last loop
+            thisTriggersPressed[1] = !lastTriggersPressed[1];
+            lastTriggersPressed[1] = true;
+        } else {
+            thisTriggersPressed[1] = false;
+            lastTriggersPressed[1] = false;
+        }
+
+
+
+        if (gamepad.touchpad){
+            thisTouchpad = !lastTouchpad;
+            lastTouchpad = true;
+        } else {
+            thisTouchpad = false;
+            lastTouchpad = false;
+        }
+    }
 
     //face button functions
     public boolean pressedA(){
-        boolean res = gamepad.a && !lastFaceButtons[0];
-        lastFaceButtons[0] = gamepad.a;
-        return res;
+        return thisFaceButtons[0];
     }
     public boolean pressedB(){
-        boolean res = gamepad.b && !lastFaceButtons[1];
-        lastFaceButtons[1] = gamepad.b;
-        return res;
+        return thisFaceButtons[1];
     }
     public boolean pressedX(){
-        boolean res = gamepad.x && !lastFaceButtons[2];
-        lastFaceButtons[2] = gamepad.x;
-        return res;
+        return thisFaceButtons[2];
     }
     public boolean pressedY(){
-        boolean res = gamepad.y && !lastFaceButtons[3];
-        lastFaceButtons[3] = gamepad.y;
-        return res;
+        return thisFaceButtons[3];
     }
 
     //dpad functions
     public boolean pressedDpadUp(){
-        boolean res = gamepad.dpad_up && !lastDpad[0];
-        lastDpad[0] = gamepad.dpad_up;
-        return res;
+        return thisDpad[0];
     }
     public boolean pressedDpadDown(){
-        boolean res = gamepad.dpad_down && !lastDpad[1];
-        lastDpad[1] = gamepad.dpad_down;
-        return res;
+        return thisDpad[1];
     }
     public boolean pressedDpadLeft(){
-        boolean res = gamepad.dpad_left && !lastDpad[2];
-        lastDpad[2] = gamepad.dpad_left;
-        return res;
+        return thisDpad[2];
     }
     public boolean pressedDpadRight(){
-        boolean res = gamepad.dpad_right && !lastDpad[3];
-        lastDpad[3] = gamepad.dpad_right;
-        return res;
+        return thisDpad[3];
     }
 
     //bumper functions
     public boolean pressedLeftBumper(){
-        boolean res = gamepad.left_bumper && !lastBumper[0];
-        lastBumper[0] = gamepad.left_bumper;
-        return res;
+        return thisBumper[0];
     }
     public boolean pressedRightBumper(){
-        boolean res = gamepad.right_bumper && !lastBumper[1];
-        lastBumper[1] = gamepad.right_bumper;
-        return res;
+        return thisBumper[1];
     }
 
     //stick button functions
     public boolean pressedLeftStickButton(){
-        boolean res = gamepad.left_stick_button && !lastStickButton[0];
-        lastBumper[0] = gamepad.left_stick_button;
-        return res;
+        return thisStickButton[0];
     }
     public boolean pressedRightStickButton(){
-        boolean res = gamepad.right_stick_button && !lastStickButton[1];
-        lastBumper[1] = gamepad.right_stick_button;
-        return res;
+        return thisStickButton[1];
     }
 
     //options and share functions
     public boolean pressedOptions(){
-        boolean res = gamepad.options && !lastOptionsAndShare[0];
-        lastOptionsAndShare[0] = gamepad.options;
-        return res;
+        return thisOptionsAndShare[0];
     }
     public boolean pressedShare(){
-        boolean res = gamepad.share && !lastOptionsAndShare[1];
-        lastOptionsAndShare[1] = gamepad.share;
-        return res;
+        return thisOptionsAndShare[1];
     }
 
     //pressing triggers
     public boolean pressedLeftTrigger(){
-        boolean triggerPressed = gamepad.left_trigger > triggerTolerance;
-        boolean res = triggerPressed && !lastTriggersPressed[0];
-        lastOptionsAndShare[0] = triggerPressed;
-        return res;
+        return thisTriggersPressed[0];
     }
     public boolean pressedRightTrigger(){
-        boolean triggerPressed = gamepad.right_trigger > triggerTolerance;
-        boolean res = triggerPressed && !lastTriggersPressed[1];
-        lastOptionsAndShare[1] = triggerPressed;
-        return res;
+        return thisTriggersPressed[1];
     }
 
     //touchpad functions
     public boolean pressedTouchpad(){
-        boolean res = gamepad.touchpad && !lastTouchpad;
-        lastTouchpad = gamepad.touchpad;
-        return res;
+        return thisTouchpad;
     }
 }
