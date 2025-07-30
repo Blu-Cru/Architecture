@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Globals {
@@ -20,6 +21,8 @@ public class Globals {
     public static String blMotorName = "BL";
     public static String brMotorName = "BR";
     public static Pose2d startPose = new Pose2d(0,0,Math.PI/2);
+
+    public static ElapsedTime matchTime;
 
     //1 is dont reflect
     public static double reflect = 1;
@@ -51,6 +54,10 @@ public class Globals {
     }
     public static void flipAlliance(){
         Globals.setAlliance(Globals.alliance.flip());
+    }
+
+    public static void updateVoltage(double voltage){
+        Globals.voltage = voltage;
     }
 
 }
