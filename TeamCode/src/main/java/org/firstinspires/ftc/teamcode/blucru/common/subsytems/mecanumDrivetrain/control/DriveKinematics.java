@@ -64,10 +64,10 @@ public class DriveKinematics {
 
         double[] powers = new double[4];
 
-        powers[0] = drivePose.getX() - drivePose.getY() * LATERAL_DECEL - drivePose.getH();
-        powers[1] = drivePose.getX() + drivePose.getY() * LATERAL_DECEL + drivePose.getH();
-        powers[2] = drivePose.getX() + drivePose.getY() * LATERAL_DECEL - drivePose.getH();
-        powers[3] = drivePose.getX() - drivePose.getY() * LATERAL_DECEL + drivePose.getH();
+        powers[0] = drivePose.getX() - drivePose.getY() * LATERAL_MULT - drivePose.getH();
+        powers[1] = drivePose.getX() + drivePose.getY() * LATERAL_MULT + drivePose.getH();
+        powers[2] = drivePose.getX() + drivePose.getY() * LATERAL_MULT - drivePose.getH();
+        powers[3] = drivePose.getX() - drivePose.getY() * LATERAL_MULT + drivePose.getH();
 
         double maxPower = Math.max(Math.abs(powers[0]),
                 Math.max(Math.abs(powers[1]),

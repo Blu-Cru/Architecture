@@ -146,7 +146,7 @@ public class DrivePID {
         Vector2d target = targetPose.vec();
         Vector2d curr = currPose.vec();
 
-        boolean inRangeXY = target.getMag() < xyTolerance;
+        boolean inRangeXY = target.subtractNotInPlace(curr).getMag() < xyTolerance;
 
         boolean inRangeH = Math.abs(targetPose.getH() - currPose.getH()) < headingTolerance;
 

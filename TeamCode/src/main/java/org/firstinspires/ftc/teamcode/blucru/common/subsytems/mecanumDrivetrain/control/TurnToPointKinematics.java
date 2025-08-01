@@ -24,7 +24,7 @@ public class TurnToPointKinematics {
         double yVel = currVel.getY();
 
         //to get vel, derive angle over pos, which is the derivative of atan(yDelta/xDelta) with respect to t
-        double headingVel = (xDelta * yVel - yVel * xDelta) / (xDelta * xDelta + yDelta * yDelta);
+        double headingVel = (xDelta * yVel - yDelta * xVel) / (xDelta * xDelta + yDelta * yDelta);
 
         return new Vector2d(heading, headingVel);
     }
