@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.blucru.opmodes;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -150,6 +152,12 @@ public abstract class BluLinearOpMode extends LinearOpMode {
      * */
     public void end(){
 
+    }
+
+    public void addDrivetrain(){drivetrain = robot.addDrivetrain();}
+    public void enableDash(){
+        telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry(), telemetry);
+        Globals.telemetry = telemetry;
     }
 
     public double[] getLoopTimes(){

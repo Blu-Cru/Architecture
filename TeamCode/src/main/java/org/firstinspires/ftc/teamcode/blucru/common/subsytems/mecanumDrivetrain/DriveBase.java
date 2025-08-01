@@ -131,7 +131,7 @@ public class DriveBase implements BluSubsystem {
 
     public void setCurrentPose(Pose2d pose){localizer.setPosition(pose);}
 
-    private void setHeading(double heading){localizer.setHeading(heading);}
+    public void setHeading(double heading){localizer.setHeading(heading);}
 
     public void setAllianceSpecificHeading(double heading, Alliance alliance){
         if (alliance == Alliance.RED){

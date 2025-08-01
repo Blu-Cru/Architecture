@@ -8,7 +8,8 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 
 public class Pinpoint implements RobotLocalizer{
-
+    //TODO TUNE PER ROBOT
+    public static double parallelYOffset = -144.675, perpXOffset = -70;
     GoBildaPinpointDriver pinpoint;
     double headingOffset;
 
@@ -21,6 +22,14 @@ public class Pinpoint implements RobotLocalizer{
     public Pinpoint(GoBildaPinpointDriver pinpoint){
         this.pinpoint = pinpoint;
         headingOffset = 0;
+        //TODO UPDATE PER ROBOT
+        pinpoint.setEncoderDirections(
+                GoBildaPinpointDriver.EncoderDirection.FORWARD,
+                GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        pinpoint.setOffsets(parallelYOffset, perpXOffset, DistanceUnit.MM);
+
+        pinpoint.resetPosAndIMU();
         pinpointPose = pinpoint.getPosition();
     }
 
