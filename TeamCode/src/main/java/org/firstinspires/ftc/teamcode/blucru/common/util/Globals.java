@@ -24,6 +24,8 @@ public class Globals {
 
     public static ElapsedTime matchTime;
 
+    public static double defaultXYTol;
+
     //1 is dont reflect
     public static double reflect = 1;
 
@@ -45,6 +47,9 @@ public class Globals {
 
     public static Pose2d mapPose(Pose2d pose){
         return mapPose(pose.getX(), pose.getY(), pose.getH());
+    }
+    public static Vector2d mapPoint(Vector2d vec){
+        return new Vector2d(vec.getX() * reflect, vec.getY()*reflect);
     }
     public static double getCorrectPower(double power){
         return power * 12.0/voltage;
