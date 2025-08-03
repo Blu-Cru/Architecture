@@ -12,6 +12,7 @@ public class BluServo extends ServoImpl implements BluHardwareDevice {
     String name;
     ServoController controller;
     double pos=0, lastPos=0;
+    boolean enabled;
     public BluServo(String name){
         this(name, Direction.FORWARD);
     }
@@ -23,6 +24,7 @@ public class BluServo extends ServoImpl implements BluHardwareDevice {
         super.setDirection(direction);
         this.name = name;
         this.controller = servo.getController();
+        this.enabled = false;
     }
     public void setPos(double pos){
         this.pos = Range.clip(pos,0,1);
@@ -37,9 +39,11 @@ public class BluServo extends ServoImpl implements BluHardwareDevice {
      * */
     public void enable(){
         controller.pwmEnable();
+        enabled = true;
     }
     public void disable(){
         controller.pwmDisable();
+        enabled = false;
     }
 
     @Override
@@ -75,5 +79,8 @@ public class BluServo extends ServoImpl implements BluHardwareDevice {
             Telemetry telemetry = Globals.telemetry;
             telemetry.addLine(name + " " + str);
         }catch(Exception ignored){}
+    }
+    public boolean enabled(){
+        return enabled;
     }
 }

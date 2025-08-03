@@ -36,7 +36,7 @@ public class DrivePIDTunerXY extends BluLinearOpMode {
                 d = 0.000000001;
             }
             d *= 2;
-            DrivePID.kDxy = p;
+            DrivePID.kDxy = d;
             drivetrain.updatePID();
         }
     }

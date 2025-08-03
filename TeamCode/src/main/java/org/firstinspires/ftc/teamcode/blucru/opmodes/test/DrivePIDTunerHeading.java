@@ -37,7 +37,7 @@ public class DrivePIDTunerHeading extends BluLinearOpMode {
                 d = 0.000000001;
             }
             d *= 2;
-            DrivePID.kDh = p;
+            DrivePID.kDh = d;
             drivetrain.updatePID();
         }
     }
