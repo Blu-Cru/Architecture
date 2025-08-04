@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.blucru.opmodes.test;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.control.DrivePID;
+import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 import org.firstinspires.ftc.teamcode.blucru.opmodes.BluLinearOpMode;
 
@@ -40,5 +41,11 @@ public class DrivePIDTunerHeading extends BluLinearOpMode {
             DrivePID.kDh = d;
             drivetrain.updatePID();
         }
+
+    }
+
+    public void telemetry(){
+        Globals.telemetry.addData("P: ", p);
+        Globals.telemetry.addData("D: ", d);
     }
 }
