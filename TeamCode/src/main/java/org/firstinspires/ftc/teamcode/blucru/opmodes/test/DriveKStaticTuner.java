@@ -30,7 +30,7 @@ public class DriveKStaticTuner extends BluLinearOpMode {
         }
 
         if (motorDirection == Direction.Y){
-            drivetrain.drive(new Pose2d(0, power, 0)));
+            drivetrain.drive(new Pose2d(0, power, 0));
         } else {
             drivetrain.drive(new Pose2d(power, 0,0));
         }
