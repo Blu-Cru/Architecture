@@ -5,4 +5,5 @@ public interface BluSubsystem {
     void read();
     void write();
     void telemetry();
+    void reset();
 }

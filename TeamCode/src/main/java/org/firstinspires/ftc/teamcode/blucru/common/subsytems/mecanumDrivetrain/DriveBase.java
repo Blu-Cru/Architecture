@@ -164,4 +164,9 @@ public class DriveBase implements BluSubsystem {
     public void telemetry() {
         localizer.telemetry();
     }
+
+    @Override
+    public void reset() {
+        //cant reset drive encoders bc there are no encoders
+    }
 }
