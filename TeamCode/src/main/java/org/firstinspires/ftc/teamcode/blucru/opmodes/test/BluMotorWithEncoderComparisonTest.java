@@ -24,4 +24,9 @@ public class BluMotorWithEncoderComparisonTest extends BluLinearOpMode {
         bluMotor.write();
         dcMotor.setPower(1);
     }
+
+    public void telemetry(){
+        telemetry.addData("Blu Motor encoder", bluMotor.getCurrentPos());
+        telemetry.addData("DcMotor encoder", dcMotor.getCurrentPosition());
+    }
 }
