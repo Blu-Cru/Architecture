@@ -57,4 +57,11 @@ public class BluMotor extends DcMotorImplEx implements BluHardwareDevice {
         telemetry.addData(name + " Power: ", power);
         telemetry.addData(name + " Last Power: ", lastPower);
     }
+
+    public double getPower(){
+        return power;
+    }
+    public double getDcMotorPower(){
+        return super.getPower();
+    }
 }
