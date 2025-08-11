@@ -90,9 +90,7 @@ public class PIDPathBuilder{
     }
 
     public PIDPathBuilder setPower(double power){
-        return schedule(new InstantCommand(() -> {
-            Robot.getInstance().drivetrain.setDrivePower(power);
-        }));
+        return schedule(new DrivetrainSetPowerCommand(power));
     }
 
     public PIDPathBuilder callback(Callback callback){

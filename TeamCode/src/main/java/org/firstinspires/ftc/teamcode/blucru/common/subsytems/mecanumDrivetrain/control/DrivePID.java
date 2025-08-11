@@ -47,7 +47,7 @@ public class DrivePID {
 
         double error = linearError.getMag();
 
-        //get percentage of mag
+        //get mag
         //vel doesnt need to rotate bc the mag doesnt change based on angle of vec
         double mag = xyController.calculate(error, currVel.getMag());
 
