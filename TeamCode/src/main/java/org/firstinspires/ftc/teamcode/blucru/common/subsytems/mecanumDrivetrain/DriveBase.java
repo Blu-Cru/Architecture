@@ -155,7 +155,7 @@ public class DriveBase implements BluSubsystem {
         }
 
         //not normal case, need to rotate by 180 deg
-        setHeading((heading + Math.PI / 2) % (2*Math.PI));
+        setHeading(Globals.normalize(heading + Math.PI));
     }
 
     public double getHeading(){

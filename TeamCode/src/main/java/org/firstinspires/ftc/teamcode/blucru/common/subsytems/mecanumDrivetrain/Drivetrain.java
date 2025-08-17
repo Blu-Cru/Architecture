@@ -212,7 +212,7 @@ public class Drivetrain extends DriveBase implements Subsystem {
         double targetHeading = Math.atan2(turnToPoint.getY() - currPose.getY(),
                 turnToPoint.getX() - currPose.getX());
 
-        boolean inRangeH = Math.abs((heading - targetHeading) % (2 * Math.PI)) < headingTol;
+        boolean inRangeH = Math.abs(Globals.normalize(heading) - Globals.normalize(targetHeading)) < headingTol;
         boolean inRangeXY = drivePoint.getMag() < xyTol;
 
         return inRangeH && inRangeXY;

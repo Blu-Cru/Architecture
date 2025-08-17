@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Vector2d;
 @Config
@@ -37,7 +38,7 @@ public class DriveKinematics {
         double headingDelta = headingVel * Math.abs(headingVel) /(2.0 * HEADING_DECEL);
 
         //normalizes angle
-        return (heading + headingDelta) % (2.0 * Math.PI);
+        return Globals.normalize(heading + headingDelta);
     }
 
     public static Pose2d staticFriction(Pose2d drivePose){

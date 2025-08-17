@@ -12,28 +12,25 @@ public class Vector2d {
 
     }
     //angles will be close enough so we should not have to worry about long loop time
-    private double normalize(double angle){
-        return angle % (2 * Math.PI);
-    }
+
 
     public double getHeading(){
         if (x != 0){
             //we can use tan
             if (x > 0){
                 //in range of tan
-                return normalize(Math.atan(y/x));
+                return Globals.normalize(Math.atan(y/x));
             } else {
-                //will always be normalized
-                return Math.atan(y/x) + Math.PI;
+                return Globals.normalize(Math.atan(y/x) + Math.PI);
             }
 
         } else{
-            //angle is pi/2 or 3pi/2, based off y
+            //angle is pi/2 or -pi/2, based off y
             if (y != 0){
                 if (y > 0){
                     return Math.PI/2;
                 } else {
-                    return 3 * Math.PI/2;
+                    return -1 * Math.PI/2;
                 }
             } else{
                 //vector 0,0 will have heading of 0
