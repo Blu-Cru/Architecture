@@ -12,8 +12,6 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Vector2d;
 
 public class Drivetrain extends DriveBase implements Subsystem {
-    //TODO TUNE THIS VALUE FOR EACH ROBOT
-    public static double PATH_HEADING_TOLERANCE = 0;
     enum State{
         IDLE,
         PID
@@ -44,6 +42,8 @@ public class Drivetrain extends DriveBase implements Subsystem {
     public void init(){
         super.init();
 
+        drive(new Pose2d(0,0,0));
+
         pid.setTargetPose(currPose);
     }
 
@@ -72,7 +72,7 @@ public class Drivetrain extends DriveBase implements Subsystem {
 
         double vertical = -g1.left_stick_y;
         double horizontal = g1.left_stick_x;
-        //right should be negative but it is pos, so we negate
+        //right increases angle, which turns to the left, so negate
         double rotation = -g1.right_stick_x;
 
         boolean translating = Math.abs(vertical) > MOVEMENT_TOLERANCE || Math.abs(horizontal) > MOVEMENT_TOLERANCE;
@@ -151,6 +151,8 @@ public class Drivetrain extends DriveBase implements Subsystem {
 
     public void driveToHeading(double x, double y){
         if (fieldCentric){
+            Globals.telemetry.addData("x vector", x * drivePower);
+            Globals.telemetry.addData("y vector", y * drivePower);
             driveFieldCentric(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState));
         } else {
             drive(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState));
@@ -159,6 +161,9 @@ public class Drivetrain extends DriveBase implements Subsystem {
 
     public void driveToHeading(double x, double y, Alliance alliance){
         if (fieldCentric){
+            Globals.telemetry.addLine("here");
+            Globals.telemetry.addData("Horizontal", x * drivePower);
+            Globals.telemetry.addData("Vertical", y * drivePower);
             driveFieldCentric(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState), alliance);
         } else {
             drive(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState));
@@ -223,6 +228,12 @@ public class Drivetrain extends DriveBase implements Subsystem {
         Globals.telemetry.addData("dt state", currState);
         Globals.telemetry.addData("dt power", drivePower);
         Globals.telemetry.addData("dt heading", heading);
+        Pose2d calc = DriveKinematics.clip(pid.calculate(xState, yState, heading), drivePower);
+        Globals.telemetry.addData("dt pid xy", "x: " + calc.getX() + ", y: " + calc.getY());
         super.telemetry();
+    }
+
+    public State getCurrState(){
+        return currState;
     }
 }

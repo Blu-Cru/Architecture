@@ -17,5 +17,9 @@ public class TeleManualDriveTest extends BluLinearOpMode {
         if (driver1.pressedA()){
             drivetrain.setHeading(Math.PI/2);
         }
+
+        if (driver1.pressedB()){
+            drivetrain.driveToHeading(0,1);
+        }
     }
 }

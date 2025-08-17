@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 public abstract class BluLinearOpMode extends LinearOpMode {
 
     public Robot robot;
-    protected boolean reportTelemetry;
+    protected boolean reportTelemetry = true;
 
     public Drivetrain drivetrain;
 

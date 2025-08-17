@@ -94,7 +94,7 @@ public class Vector2d {
      * this function rotates a vector counter clockwise and returns it
      */
     public Vector2d rotate(double angle){
-        double newX = getX() * Math.cos(angle) - getY() * Math.cos(angle);
+        double newX = getX() * Math.cos(angle) - getY() * Math.sin(angle);
         double newY = getX() * Math.sin(angle) + getY() * Math.cos(angle);
         return new Vector2d(newX, newY);
     }
@@ -103,8 +103,10 @@ public class Vector2d {
      * this function rotates a vector counter clockwise, directly changing the vector
      */
     public void rotateInPlace(double angle){
-        x = getX() * Math.cos(angle) - getY() * Math.cos(angle);
-        y = getX() * Math.sin(angle) + getY() * Math.cos(angle);
+        double originalX = x;
+        double originalY = y;
+        x = originalX * Math.cos(angle) - originalY * Math.cos(angle);
+        y = originalX * Math.sin(angle) + originalY * Math.cos(angle);
     }
     public Pose2d pose(){
         return new Pose2d(this);

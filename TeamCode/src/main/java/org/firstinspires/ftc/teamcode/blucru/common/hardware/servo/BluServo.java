@@ -24,7 +24,7 @@ public class BluServo extends ServoImpl implements BluHardwareDevice {
         super.setDirection(direction);
         this.name = name;
         this.controller = servo.getController();
-        this.enabled = false;
+        this.enabled = true;
     }
     public void setPos(double pos){
         this.pos = Range.clip(pos,0,1);

@@ -11,10 +11,10 @@ public class DriveKinematics {
 
     //TODO SET THESE VALUES WHEN USING THIS ARCHITECTURE
     public static double
-            AXIAL_DECEL, LATERAL_DECEL,HEADING_DECEL,
-            LATERAL_MULT,
-            STRAFE_STATIC_FRICTION, FORWARD_STATIC_FRICTION, //how much power needed to move the robot
-            MAX_DRIVE_ACCEL_DELTA, MAX_DRIVE_DECEL_DELTA;
+            AXIAL_DECEL = 0.5, LATERAL_DECEL = 0.5,HEADING_DECEL = 8,
+            LATERAL_MULT = 1.8,
+            STRAFE_STATIC_FRICTION = 0.02, FORWARD_STATIC_FRICTION = 0.01, //how much power needed to move the robot
+            MAX_DRIVE_ACCEL_DELTA = 0.5, MAX_DRIVE_DECEL_DELTA = 0.5;
 
     public static double getDistToPoint(Pose2d curr, Pose2d target){
         return Math.sqrt(Math.pow(curr.getX() - target.getX(), 2) + Math.pow(curr.getY() - target.getY(),2));
@@ -28,7 +28,9 @@ public class DriveKinematics {
         double robotDeltaX = robotVel.getX() * Math.abs(robotVel.getX()) / (2.0 * AXIAL_DECEL);
         double robotDeltaY = robotVel.getY() * Math.abs(robotVel.getY()) / (2.0 * LATERAL_DECEL);
 
-        return new Pose2d(pose.getX() + robotDeltaX, pose.getY() + robotDeltaY, getHeadingDecel(pose.getH(), fieldVel.getH()));
+        Vector2d robotDeltaPose = new Vector2d(robotDeltaX, robotDeltaY);
+
+        return new Pose2d(pose.vec().addNotInPlace(robotDeltaPose.rotate(pose.getH())), getHeadingDecel(pose.getH(), fieldVel.getH()));
     }
 
     public static double getHeadingDecel(double heading, double headingVel){
@@ -45,7 +47,7 @@ public class DriveKinematics {
             double angle = driveVector.getHeading();
 
             double minMagOfStaticFriction = STRAFE_STATIC_FRICTION * FORWARD_STATIC_FRICTION /
-                    (Math.sqrt(STRAFE_STATIC_FRICTION * Math.cos(angle) + FORWARD_STATIC_FRICTION * Math.sin(angle)));
+                    Math.hypot(STRAFE_STATIC_FRICTION * Math.cos(angle) , FORWARD_STATIC_FRICTION * Math.sin(angle));
 
             double newDriveMag = minMagOfStaticFriction * (1-minMagOfStaticFriction) * driveVector.getMag();
             return new Pose2d(driveVector.getX() * newDriveMag / driveVector.getMag(),
@@ -59,7 +61,7 @@ public class DriveKinematics {
 
     public static double[] getDriveMotorPowers(Pose2d drivePose){
 
-        //make pose have values between 0 and 1
+        //make pose have values between -1 and 1
         drivePose = clip(drivePose, 1);
 
         double[] powers = new double[4];

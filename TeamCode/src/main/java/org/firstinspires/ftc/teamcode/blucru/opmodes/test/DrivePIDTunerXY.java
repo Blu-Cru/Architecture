@@ -14,6 +14,7 @@ public class DrivePIDTunerXY extends BluLinearOpMode {
         enableDash();
         addDrivetrain();
         drivetrain.setCurrentPose(new Pose2d(0,0,0));
+        drivetrain.setDrivePower(1);
     }
 
     public void periodic(){

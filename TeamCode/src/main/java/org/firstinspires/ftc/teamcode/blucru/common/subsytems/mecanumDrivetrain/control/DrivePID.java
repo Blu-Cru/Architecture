@@ -12,7 +12,7 @@ public class DrivePID {
 
     public static double
         kPxy, kDxy,
-        kPh, kDh;
+        kPh = 1.7, kDh = 0.1;
 
     public PDController xyController, headingController;
 
