@@ -66,13 +66,7 @@ public class Globals {
     }
 
     public static double normalize(double angle){
-        double preNormalized = angle % (2.0*Math.PI);
-
-        if (preNormalized == Math.PI){
-            return Math.PI;
-        } else{
-            return (preNormalized + Math.PI) % (2.0 * Math.PI) - Math.PI;
-        }
+        return angle % (2.0 * Math.PI);
     }
 
 }

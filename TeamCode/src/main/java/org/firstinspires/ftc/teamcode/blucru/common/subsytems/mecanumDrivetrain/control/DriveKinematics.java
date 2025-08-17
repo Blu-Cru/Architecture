@@ -50,7 +50,7 @@ public class DriveKinematics {
             double minMagOfStaticFriction = STRAFE_STATIC_FRICTION * FORWARD_STATIC_FRICTION /
                     Math.hypot(STRAFE_STATIC_FRICTION * Math.cos(angle) , FORWARD_STATIC_FRICTION * Math.sin(angle));
 
-            double newDriveMag = minMagOfStaticFriction * (1-minMagOfStaticFriction) * driveVector.getMag();
+            double newDriveMag = minMagOfStaticFriction + (1-minMagOfStaticFriction) * driveVector.getMag();
             return new Pose2d(driveVector.getX() * newDriveMag / driveVector.getMag(),
                     driveVector.getY() * newDriveMag / driveVector.getMag(),
                     drivePose.getH());
