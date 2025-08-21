@@ -87,16 +87,7 @@ public class DriveBase implements BluSubsystem {
     public void drive(Pose2d vel){
         vel = DriveKinematics.staticFriction(vel);
 
-        Globals.telemetry.addData("robot x", vel.getX());
-        Globals.telemetry.addData("robot y", vel.getY());
-        Globals.telemetry.addData("robot h", vel.getH());
-
         double[] powers = DriveKinematics.getDriveMotorPowers(vel);
-
-        Globals.telemetry.addData("fl power", powers[0]);
-        Globals.telemetry.addData("fr power", powers[1]);
-        Globals.telemetry.addData("bl power", powers[2]);
-        Globals.telemetry.addData("br power", powers[3]);
 
         for (int i = 0; i < 4; i++){
             motors[i].setPower(powers[i]);
@@ -108,9 +99,6 @@ public class DriveBase implements BluSubsystem {
     }
 
     public void driveFieldCentric(Pose2d fieldCentric){
-        Globals.telemetry.addData("field x", fieldCentric.getX());
-        Globals.telemetry.addData("field y", fieldCentric.getY());
-        Globals.telemetry.addData("field h", fieldCentric.getH());
         Pose2d robotCentricPose = new Pose2d(fieldCentric.vec().rotate(-localizer.getHeading()), fieldCentric.getH());
         drive(robotCentricPose);
     }

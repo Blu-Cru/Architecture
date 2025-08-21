@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.blucru.common.util.Alliance.BLUE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.canvas.Canvas;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Globals {
     public static HardwareMap hwMap;
     public static Telemetry telemetry;
+    public static MultipleTelemetry multiTelemetry;
     public static double voltage = 13.0;
     public static Alliance alliance = RED;
     public static String pinpointName = "pinpoint";

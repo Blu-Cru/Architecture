@@ -31,7 +31,7 @@ public class PDController extends PIDController{
     public double calculate(Vector2d curr, Vector2d target){
         Vector2d error = target.subtractNotInPlace(curr);
 
-        super.setSetPoint(error.getX());
+        super.setSetPoint(target.getX());
         return error.dotProduct(k);
     }
 

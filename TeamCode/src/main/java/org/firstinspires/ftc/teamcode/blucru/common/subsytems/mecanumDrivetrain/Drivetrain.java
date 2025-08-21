@@ -24,7 +24,7 @@ public class Drivetrain extends DriveBase implements Subsystem {
     //TODO TUNE THIS IF NECESSARY
     final double MOVEMENT_TOLERANCE = 0.05;
     State currState;
-    DrivePID pid;
+    public DrivePID pid;
     TurnToPointKinematics turnPointKinematics;
     //for heading lock
     boolean lastTurning, lastTranslating;
@@ -151,8 +151,6 @@ public class Drivetrain extends DriveBase implements Subsystem {
 
     public void driveToHeading(double x, double y){
         if (fieldCentric){
-            Globals.telemetry.addData("x vector", x * drivePower);
-            Globals.telemetry.addData("y vector", y * drivePower);
             driveFieldCentric(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState));
         } else {
             drive(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState));
@@ -161,9 +159,6 @@ public class Drivetrain extends DriveBase implements Subsystem {
 
     public void driveToHeading(double x, double y, Alliance alliance){
         if (fieldCentric){
-            Globals.telemetry.addLine("here");
-            Globals.telemetry.addData("Horizontal", x * drivePower);
-            Globals.telemetry.addData("Vertical", y * drivePower);
             driveFieldCentric(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState), alliance);
         } else {
             drive(new Vector2d(x * drivePower, y * drivePower), pid.getRotate(headingState));

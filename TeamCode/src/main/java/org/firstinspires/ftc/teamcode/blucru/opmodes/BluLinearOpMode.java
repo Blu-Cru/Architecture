@@ -26,7 +26,7 @@ public abstract class BluLinearOpMode extends LinearOpMode {
 
 
     //loop time information
-    double lastTimeLoopWasRun = 0, loopTimeSegmentSum = 0,
+     double lastTimeLoopWasRun = 0, loopTimeSegmentSum = 0,
             loopTimeSegmentTimeOffset = 0, amountOfLoopsInSegment = 0,
             amountOfLoopsOverall = 0;
 
@@ -170,11 +170,11 @@ public abstract class BluLinearOpMode extends LinearOpMode {
         amountOfLoopsOverall++;
 
         double[] res = new double[2];
-        res[1] = amountOfLoopsOverall / (Globals.matchTime.milliseconds());
+        res[1] = (Globals.matchTime.milliseconds()) / amountOfLoopsOverall;
 
         //update loop frequency every 20 loops
         if (amountOfLoopsInSegment > 20){
-            res[0] = amountOfLoopsInSegment / (loopTimeSegmentSum);
+            res[0] = (loopTimeSegmentSum) / amountOfLoopsInSegment;
             loopTimeSegmentSum = 0;
             amountOfLoopsInSegment = 0;
         }

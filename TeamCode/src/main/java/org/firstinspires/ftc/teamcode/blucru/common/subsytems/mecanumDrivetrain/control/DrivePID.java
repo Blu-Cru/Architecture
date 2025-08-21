@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.blucru.common.util.Globals;
 import org.firstinspires.ftc.teamcode.blucru.common.util.PDController;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Vector2d;
@@ -12,11 +13,11 @@ public class DrivePID {
 
     public static double
         kPxy, kDxy,
-        kPh = 1.7, kDh = 0.1;
+        kPh = 1.7, kDh = 0.035;
 
     public PDController xyController, headingController;
 
-    Pose2d targetPose;
+    public Pose2d targetPose;
 
     public DrivePID(){
         xyController = new PDController(kPxy, kDxy);
@@ -113,12 +114,12 @@ public class DrivePID {
     }
 
     public double getRotate(Vector2d curr, Vector2d end){
-
+        double deltaAngle = curr.getX() - end.getY();
         //wrapping to be between -pi and pi
-        if (curr.getX() - end.getX() < -Math.PI){
-            curr = new Vector2d(curr.getX() + 2*Math.PI, curr.getY());
-        } else if (curr.getX() - end.getX() > Math.PI){
-            curr = new Vector2d(curr.getX() - 2*Math.PI, curr.getY());
+        if (deltaAngle < -Math.PI){
+            curr = new Vector2d(deltaAngle + 2*Math.PI, curr.getY());
+        } else if (deltaAngle > Math.PI){
+            curr = new Vector2d(deltaAngle - 2*Math.PI, curr.getY());
         }
 
         return headingController.calculate(curr, end);
