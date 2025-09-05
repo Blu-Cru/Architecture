@@ -1,6 +1,13 @@
 package org.firstinspires.ftc.teamcode.blucru.common.subsytems;
 
+import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
+
+import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.Drivetrain;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Robot {
 
@@ -10,7 +17,10 @@ public class Robot {
 
     //list of subsystems
     ArrayList<BluSubsystem> subsystems;
-    static Robot instance;
+    public Drivetrain drivetrain;
+    private static Robot instance;
+    HardwareMap hwMap;
+    List<LynxModule> hubs;
     public static Robot getInstance(){
         if (instance == null){
             instance = new Robot();
@@ -22,6 +32,72 @@ public class Robot {
 
     private Robot(){
         subsystems = new ArrayList<>();
+    }
+
+    public void setHwMap(HardwareMap hwMap){
+        this.hwMap = hwMap;
+    }
+
+    public void init(){
+        //store the hubs in an array
+        hubs = hwMap.getAll(LynxModule.class);
+
+        //set the hubs to auto bulk reads
+        for (LynxModule hub : hubs){
+            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
+
+        //init all subsystems
+        for (BluSubsystem subsystem : subsystems){
+            subsystem.init();
+        }
+    }
+
+    public void read(){
+
+
+        //clear caches of both hubs
+        for (LynxModule hub:hubs){
+            hub.clearBulkCache();
+        }
+
+        //read from each subsytem
+        for (BluSubsystem subsystem: subsystems){
+            subsystem.read();
+        }
+    }
+
+    public void write(){
+        //write to each subsystem
+        for (BluSubsystem subsystem : subsystems){
+            subsystem.write();
+        }
+    }
+
+    public double getVoltage(){
+
+        //start at 12 bc that is the max power, otherwsie the power correction returns values < 1
+        double result = 12;
+        //read voltage sensor and
+        for (VoltageSensor sensor: hwMap.voltageSensor){
+            double voltage = sensor.getVoltage();
+            if (voltage > 0){
+                result = Math.min(result, voltage);
+            }
+        }
+        return result;
+    }
+
+    public void telemetry(){
+        for (BluSubsystem subsystem: subsystems){
+            subsystem.telemetry();
+        }
+    }
+
+    public Drivetrain addDrivetrain(){
+        drivetrain = new Drivetrain();
+        subsystems.add(drivetrain);
+        return drivetrain;
     }
 
 
