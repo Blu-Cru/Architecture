@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.localization;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
@@ -94,9 +95,14 @@ public class Pinpoint implements RobotLocalizer{
 
     @Override
     public void setPosition(Pose2d pose) {
+
+
+        Globals.telemetry.addData("Pose", "X: " + pose.getX() + ",Y: " + pose.getY() + ",H: " + pose.getH());
+
         pinpoint.setPosX(pose.getX(), DistanceUnit.INCH);
         pinpoint.setPosY(pose.getY(), DistanceUnit.INCH);
         pinpoint.setHeading(pose.getH(), AngleUnit.RADIANS);
+        read();
     }
 
     @Override
@@ -110,10 +116,9 @@ public class Pinpoint implements RobotLocalizer{
     }
 
     @Override
-    public void telemetry() {
+    public void telemetry(Telemetry telemetry) {
 
-        //adding the "" at the start makes sure that it is a string
-        Globals.telemetry.addData("Pinpoint Pose", "" + getPose());
-        Globals.telemetry.addData("Pinpoint Vel", "" + getVel());
+        telemetry.addData("Pinpoint heading", pinpoint.getHeading(AngleUnit.RADIANS));
+
     }
 }

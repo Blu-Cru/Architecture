@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.blucru.common.util.Vector2d;
 public class DrivePID {
 
     public static double
-        kPxy, kDxy,
+        kPxy=0.15, kDxy=0.01,
         kPh = 1.7, kDh = 0.035;
 
     public PDController xyController, headingController;
@@ -50,7 +50,7 @@ public class DrivePID {
 
         //get mag
         //vel doesnt need to rotate bc the mag doesnt change based on angle of vec
-        double mag = xyController.calculate(error, currVel.getMag());
+        double mag = xyController.calculate(error, -currVel.getMag());
 
         double headingPower = getRotate(heading);
 

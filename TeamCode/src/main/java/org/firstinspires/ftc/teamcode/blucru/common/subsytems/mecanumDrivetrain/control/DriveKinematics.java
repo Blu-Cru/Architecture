@@ -13,7 +13,7 @@ public class DriveKinematics {
     //TODO SET THESE VALUES WHEN USING THIS ARCHITECTURE
     public static double
             AXIAL_DECEL = 0.5, LATERAL_DECEL = 0.5,HEADING_DECEL = 8,
-            LATERAL_MULT = 1.8,
+            LATERAL_MULT = 1.2,
             STRAFE_STATIC_FRICTION = 0.02, FORWARD_STATIC_FRICTION = 0.01, //how much power needed to move the robot
             MAX_DRIVE_ACCEL_DELTA = 0.5, MAX_DRIVE_DECEL_DELTA = 0.5;
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.localization;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.blucru.common.util.Pose2d;
 
 public interface RobotLocalizer {
@@ -13,5 +14,5 @@ public interface RobotLocalizer {
     public void setPosition(Pose2d pose);
     public Pose2d getVel();
     public void setHeading(double heading);
-    public void telemetry();
+    public void telemetry(Telemetry telemetry);
 }

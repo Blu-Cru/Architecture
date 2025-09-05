@@ -38,7 +38,9 @@ public class PDController extends PIDController{
     public double calculate(double errorPos, double errorVel){
 
         Vector2d error = new Vector2d(errorPos, errorVel);
-        super.setSetPoint(error.getX());
+
+        //do not know set point, so setting it to 0
+        super.setSetPoint(0);
         return error.dotProduct(k);
     }
 

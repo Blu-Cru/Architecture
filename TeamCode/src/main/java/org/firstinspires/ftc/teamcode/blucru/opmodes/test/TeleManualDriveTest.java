@@ -15,7 +15,7 @@ public class TeleManualDriveTest extends BluLinearOpMode {
         drivetrain.teleOpDrive(gamepad1);
 
         if (driver1.pressedA()){
-            drivetrain.setHeading(Math.PI/2);
+            drivetrain.setHeadingTele(Math.PI/2);
         }
 
         if (driver1.pressedB()){

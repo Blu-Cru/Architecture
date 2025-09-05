@@ -4,6 +4,7 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.Drivetrain;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Robot {
 
 
     //list of subsystems
-    ArrayList<BluSubsystem> subsystems;
+    static ArrayList<BluSubsystem> subsystems;
     public Drivetrain drivetrain;
     private static Robot instance;
     HardwareMap hwMap;
@@ -24,6 +25,7 @@ public class Robot {
     public static Robot getInstance(){
         if (instance == null){
             instance = new Robot();
+            Robot.subsystems.clear();
         }
         return instance;
     }
@@ -88,10 +90,17 @@ public class Robot {
         return result;
     }
 
-    public void telemetry(){
+    public void telemetry(Telemetry telemetry){
         for (BluSubsystem subsystem: subsystems){
-            subsystem.telemetry();
+            subsystem.telemetry(telemetry);
         }
+    }
+
+    public double getAmountOfSubsystems(){
+        return subsystems.size();
+    }
+    public void clear(){
+        subsystems.clear();
     }
 
     public Drivetrain addDrivetrain(){

@@ -38,6 +38,8 @@ public abstract class BluLinearOpMode extends LinearOpMode {
         Globals.matchTime = new ElapsedTime();
         Globals.hwMap = hardwareMap;
         Globals.telemetry = telemetry;
+        telemetry.update();
+        Globals.telemetry.update();
 
         //clears all possible running commands
         CommandScheduler.getInstance().cancelAll();
@@ -50,10 +52,11 @@ public abstract class BluLinearOpMode extends LinearOpMode {
         robot.setHwMap(Globals.hwMap);
         Globals.updateVoltage(robot.getVoltage());
 
+
         initialize();
         robot.init();
 
-
+        telemetry.addLine("here");
         while(opModeInInit()){
             //update gamepads
             driver1.update();
@@ -74,6 +77,8 @@ public abstract class BluLinearOpMode extends LinearOpMode {
             telemetry.addLine("Initialized");
             if (reportTelemetry){
                 telemetry();
+                telemetry.addData("match time", Globals.matchTime.milliseconds());
+                telemetry.addData("Amount of Subsystems", robot.getAmountOfSubsystems());
             }
             telemetry.update();
         }
@@ -102,13 +107,17 @@ public abstract class BluLinearOpMode extends LinearOpMode {
             if (reportTelemetry){
                 double[] loopTimes = getLoopTimes();
                 telemetry();
-                robot.telemetry();
+                robot.telemetry(telemetry);
                 telemetry.addData("Alliance: ", Globals.alliance);
                 telemetry.addData("Segment Loop Time: ", loopTimes[0]);
                 telemetry.addData("Overall Loop Time: ", loopTimes[1]);
                 telemetry.update();
             }
         }
+
+
+        telemetry.clearAll();
+        end();
     }
 
 

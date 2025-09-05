@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.blucru.common.hardware.motor.BluMotor;
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.BluSubsystem;
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.control.DriveKinematics;
@@ -38,16 +39,15 @@ public class DriveBase implements BluSubsystem {
         xState = new Vector2d(0,0);
         yState = new Vector2d(0,0);
         headingState = new Vector2d(0,0);
+        heading = 0;
+        headingVel = 0;
 
         motors = new BluMotor[] {fl, fr, bl, br};
-        localizer.setPosition(Globals.startPose);
     }
 
 
     @Override
     public void init() {
-
-        localizer.setPosition(Globals.startPose);
 
         for (BluMotor motor :  motors){
             motor.init();
@@ -129,9 +129,14 @@ public class DriveBase implements BluSubsystem {
 
     public Pose2d getCurrPose(){return localizer.getPose();}
 
-    public void setCurrentPose(Pose2d pose){localizer.setPosition(pose);}
+    public void setCurrentPose(Pose2d pose){
+        Globals.telemetry.addData("Pose", "X: " + pose.getX() + ",Y: " + pose.getY() + ",H: " + pose.getH());
+        localizer.setPosition(pose);
+    }
 
-    public void setHeading(double heading){localizer.setHeading(heading);}
+    public void setHeading(double heading){
+        localizer.setHeading(heading);
+    }
 
     public void setAllianceSpecificHeading(double heading, Alliance alliance){
         if (alliance == Alliance.RED){
@@ -147,7 +152,7 @@ public class DriveBase implements BluSubsystem {
     }
 
     public double getHeading(){
-        return localizer.getHeading();
+        return heading;
     }
 
     public Pose2d getVel(){
@@ -161,8 +166,8 @@ public class DriveBase implements BluSubsystem {
 
 
     @Override
-    public void telemetry() {
-        localizer.telemetry();
+    public void telemetry(Telemetry telemetry) {
+        localizer.telemetry(telemetry);
     }
 
     @Override

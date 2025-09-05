@@ -20,11 +20,12 @@ public class PIDPathBuilderTest extends BluLinearOpMode {
     StateMachine sm;
     @Override
     public void initialize(){
+        robot.clear();
         enableDash();
         addDrivetrain();
 
         Globals.setAlliance(Alliance.RED);
-        drivetrain.setCurrentPose(new Pose2d(0,0,0));
+        drivetrain.setCurrentPose(new Pose2d(0,0,Math.PI/2));
 
         sm = new StateMachineBuilder()
                 .state(States.IDLE)
@@ -46,5 +47,16 @@ public class PIDPathBuilderTest extends BluLinearOpMode {
     public void periodic(){
         sm.update();
         drivetrain.drawPose();
+    }
+
+    public void onStart(){
+        telemetry.addLine("onStart");
+        telemetry.addData("Pose here", "x: "+ drivetrain.getCurrPose().getX() + "y: " + drivetrain.getCurrPose().getY() + "h: " + drivetrain.getCurrPose().getH());
+        telemetry.update();
+        sleep(5000);
+    }
+
+    public void telemetry(){
+        telemetry.addData("Pose here", "x: "+ drivetrain.getCurrPose().getX() + "y: " + drivetrain.getCurrPose().getY() + "h: " + drivetrain.getCurrPose().getH());
     }
 }

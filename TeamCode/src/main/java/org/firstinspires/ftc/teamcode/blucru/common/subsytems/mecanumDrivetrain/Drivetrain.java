@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain
 import com.arcrobotics.ftclib.command.Subsystem;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.control.DriveKinematics;
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.control.DrivePID;
 import org.firstinspires.ftc.teamcode.blucru.common.subsytems.mecanumDrivetrain.control.TurnToPointKinematics;
@@ -214,18 +215,29 @@ public class Drivetrain extends DriveBase implements Subsystem {
 
     }
 
+    public void setHeadingTele(double heading){
+        super.setHeading(heading);
+        pid.setTargetHeading(heading);
+    }
+    public void setHeadingAuto(double heading){
+        super.setHeading(heading);
+        pid.setTargetHeading(heading);
+    }
+
     public void setDrivePower(double power){
         this.drivePower = power;
     }
 
     @Override
-    public void telemetry(){
-        Globals.telemetry.addData("dt state", currState);
-        Globals.telemetry.addData("dt power", drivePower);
-        Globals.telemetry.addData("dt heading", heading);
+    public void telemetry(Telemetry telemetry){
+        telemetry.addData("dt state", currState);
+        telemetry.addData("dt power", drivePower);
+        telemetry.addData("dt heading", heading);
         Pose2d calc = DriveKinematics.clip(pid.calculate(xState, yState, heading), drivePower);
-        Globals.telemetry.addData("dt pid xy", "x: " + calc.getX() + ", y: " + calc.getY());
-        super.telemetry();
+        telemetry.addData("dt pid xy", "x: " + calc.getX() + ", y: " + calc.getY());
+        telemetry.addData("dt pid heading target val", pid.headingController.getSetPoint());
+        telemetry.addData("dt pid values xy", "x: " + DrivePID.kPxy + "',y: " + DrivePID.kDxy);
+        super.telemetry(telemetry);
     }
 
     public State getCurrState(){
