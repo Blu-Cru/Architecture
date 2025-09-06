@@ -19,7 +19,7 @@ public class BluPIDServoTest extends BluLinearOpMode {
     public void periodic(){
 
         servo.read();
-        
+
         if (gamepad1.a){
             servo.setPosition(0.5);
         }

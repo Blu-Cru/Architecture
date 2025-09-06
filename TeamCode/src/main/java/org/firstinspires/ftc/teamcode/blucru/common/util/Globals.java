@@ -27,6 +27,9 @@ public class Globals {
     //1 is dont reflect
     public static double reflect = 1;
 
+    public static double[] motors = {6000,1620,1150,435,312,223,117,84,60,43,30};
+    public static double[] encoderResPerRPM = {28,103.8,145.1,384.5,537.7,751.8,1425.1,1993.6,2786.2,3895.9,5281.1};
+
     public static Pose2d mapPose(double x, double y, double heading){
         x = x*reflect;
         y = y*reflect;
@@ -58,6 +61,25 @@ public class Globals {
 
     public static void updateVoltage(double voltage){
         Globals.voltage = voltage;
+    }
+
+    public static double convertServoPosToAngle(double range, double servoPos){
+        return (servoPos - 0.5) * range;
+    }
+
+    public static double convertMotorPositionToRotations(double rpm, double pos){
+
+        //find motor index
+        int i = 0;
+        for (i = 0; i<motors.length; i++){
+            if (motors[i] == rpm){
+                break;
+            }
+        }
+
+        double encoderRes = encoderResPerRPM[i];
+
+        return pos/encoderRes;
     }
 
 }
